@@ -176,34 +176,34 @@ func (n *node) insertChild(numParams uint8, path, fullPath string, handle http.H
 }
 
 // addRoute adds a node with the given handle to the path.
-func (n *node) addRoute(path string, handle http.Handler) {
-	fullPath := path
-	n.priority++
-	numParams := countParams(path)
-
-	if len(n.path) > 0 || len(n.children) > 0 {
-		for {
-			if numParams > n.maxParams {
-				n.maxParams = numParams
-			}
-
-			// Find the longest common prefix.
-			// This alos implies that the common prefix contains no ':' or '*'
-			// since the existing key can't contain those chars
-			i := 0
-			max := min(len(path), len(n.path))
-			for i < max && path[i] == n.path[i] {
-				i++
-			}
-
-			// Split edge
-			if i < len(n.path) {
-				child := node{
-					path:      n.path[i:],
-					wildChild: n.wildChild,
-					nType:     static,
-				}
-			}
-		}
-	}
-}
+// func (n *node) addRoute(path string, handle http.Handler) {
+// 	fullPath := path
+// 	n.priority++
+// 	numParams := countParams(path)
+//
+// 	if len(n.path) > 0 || len(n.children) > 0 {
+// 		for {
+// 			if numParams > n.maxParams {
+// 				n.maxParams = numParams
+// 			}
+//
+// 			// Find the longest common prefix.
+// 			// This alos implies that the common prefix contains no ':' or '*'
+// 			// since the existing key can't contain those chars
+// 			i := 0
+// 			max := min(len(path), len(n.path))
+// 			for i < max && path[i] == n.path[i] {
+// 				i++
+// 			}
+//
+// 			// Split edge
+// 			if i < len(n.path) {
+// 				child := node{
+// 					path:      n.path[i:],
+// 					wildChild: n.wildChild,
+// 					nType:     static,
+// 				}
+// 			}
+// 		}
+// 	}
+// }
