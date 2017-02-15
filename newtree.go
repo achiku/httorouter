@@ -1,6 +1,9 @@
 package tiniyrouter
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+)
 
 const (
 	asterisk = byte('*')
@@ -43,6 +46,7 @@ func (tn *treeNode) getIndexPosition(target byte) int {
 	low, high := 0, len(tn.indices)
 	for low < high {
 		mid := low + ((high - low) >> 1)
+		log.Println(mid)
 		if tn.indices[mid] < target {
 			low = mid + 1
 		} else {
@@ -50,4 +54,11 @@ func (tn *treeNode) getIndexPosition(target byte) int {
 		}
 	}
 	return low
+}
+
+func (tn *treeNode) insertChild(index byte, child *treeNode) *treeNode {
+	i := tn.getIndexPosition(index)
+	tn.indices = tn.indices[:i] + string(index) + tn.indices[i:]
+	tn.children = append(tn.children[:i], append([]*treeNode{child}, tn.children[i:]...)...)
+	return child
 }

@@ -20,3 +20,12 @@ func TestFind(t *testing.T) {
 		}
 	}
 }
+
+func TestGetIndexPosition(t *testing.T) {
+	node := treeNode{
+		indices: "/hello/world",
+	}
+	str := "w"
+	i := node.getIndexPosition(byte(str))
+	t.Logf("%d", i)
+}
